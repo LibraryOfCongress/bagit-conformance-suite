@@ -10,6 +10,13 @@ This is a simple collection of BagIt format test cases for different implementat
 * Each of the lower level directories should contain a human-meaningful name indicating the aspect being
   tested
 
+## Notes
+
+* Git's `core.autocrlf` setting can cause bag validation failures by converting CRLF files automatically
+  depending on your operating system and configuration. It is recommended that you disable it in your local
+  checkout of this repository:
+
+  `git config core.autocrlf false`
 
 ## License
 
