@@ -1,0 +1,18 @@
+# BagIt Conformance Suite
+
+This is a simple collection of BagIt format test cases for different implementations.
+
+## Structure
+
+* The top level of the repository contains directories for each version of the BagIt RFC, prefixed with "v"
+* Each version directory should contain a directory named “valid” containing bags which must pass validation
+  and "invalid" listing bags which must fail validation
+* Each of the lower level directories should contain a human-meaningful name indicating the aspect being
+  tested
+
+
+## License
+
+This repository is released as a [public domain work of the U.S. Government](LICENSE.md).
+
+Contributions are gladly accepted but must be released into the public domain.
