@@ -1,0 +1,10 @@
+Source-Organization: Spengler University
+Source-Organization: Foo University
+Organization-Address: 1400 Elm St., Cupertino, California, 95014
+Organization-Address: 0 Elm St., Cupertino, California, 95014
+Contact-Name: Edna Janssen
+Contact-Name: Foo Bar
+Contact-Phone: +1 408-555-1212
+Contact-Phone: +1 111-111-1111
+Contact-Email: ej@spengler.edu
+Contact-Email: foo@spengler.edu

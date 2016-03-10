@@ -1,0 +1,6 @@
+Bagging-Date: 2016-02-26
+Bagging-Date: 2016-03-10
+Contact-Email: cadams@loc.gov
+Contact-Email: jsca@loc.gov
+Contact-Name: Chris Adams
+Contact-Name: John Scancella
