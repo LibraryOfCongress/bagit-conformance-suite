@@ -3,7 +3,7 @@ buildscript {
     jcenter()
     maven {url "https://oss.sonatype.org/content/repositories/snapshots" }
   }
-  dependencies {classpath 'gov.loc:bagit:5.0.0-Nov-17-2016_14-47-42-SNAPSHOT'}
+  dependencies {classpath 'gov.loc:bagit:5.0.0-Nov-29-2016_15-18-05-SNAPSHOT'}
 }
 
 import gov.loc.repository.bagit.verify.BagVerifier
@@ -54,7 +54,7 @@ task testJavaConformance(){
   description 'Tests the bagit-java library against the bagit conformance suite repository'
 
   doLast{
-    getBagVersionDirectories().getFiles().each{version ->
+    getBagVersionDirectories().each{version ->
       testInvalidVersionsUsingJava(version)
       testValidVersionsUsingJava(version)
     }
