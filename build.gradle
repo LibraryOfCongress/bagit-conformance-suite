@@ -1,0 +1,62 @@
+buildscript {
+  repositories {
+    jcenter()
+    maven {url "https://oss.sonatype.org/content/repositories/snapshots" }
+  }
+  dependencies {classpath 'gov.loc:bagit:5.0.0-Nov-17-2016_14-47-42-SNAPSHOT'}
+}
+
+import gov.loc.repository.bagit.verify.BagVerifier
+import gov.loc.repository.bagit.reader.BagReader
+import gov.loc.repository.bagit.domain.Bag
+
+List<File> getBagVersionDirectories(){
+  def dirs = []
+  
+  project.projectDir.eachDir() { dir ->
+    if(dir.name.startsWith("v")){
+      dirs.add(dir)
+    }
+  }
+
+  return dirs
+}
+
+void testValidVersionsUsingJava(File version){
+  File validDir = new File(version, "valid")
+  BagReader bagReader = new BagReader()
+  BagVerifier bagVerifier = new BagVerifier()
+  
+  validDir.eachFile{bagDir ->
+      Bag bag = bagReader.read(bagDir.toPath())
+      bagVerifier.isValid(bag, true)
+  }
+}
+
+void testInvalidVersionsUsingJava(File version){
+  File validDir = new File(version, "invalid")
+  BagReader bagReader = new BagReader()
+  BagVerifier bagVerifier = new BagVerifier()
+  
+  if(validDir.exists()){
+    validDir.eachFile{bagDir ->
+      try{
+        Bag bag = bagReader.read(bagDir.toPath())
+        boolean result = bagVerifier.isValid(bag, true)
+      }
+      catch(Exception e){return } //do nothing since they are supposed to throw an exception
+      throw new GradleException("bagit-java should have thrown an exception for invalid version " + version.parent + " case: " + version.name)
+    }
+  }
+}
+
+task testJavaConformance(){
+  description 'Tests the bagit-java library against the bagit conformance suite repository'
+
+  doLast{
+    getBagVersionDirectories().getFiles().each{version ->
+      testInvalidVersionsUsingJava(version)
+      testValidVersionsUsingJava(version)
+    }
+  }
+}
