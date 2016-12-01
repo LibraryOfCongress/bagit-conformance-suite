@@ -3,7 +3,7 @@ buildscript {
     jcenter()
     maven {url "https://oss.sonatype.org/content/repositories/snapshots" }
   }
-  dependencies {classpath 'gov.loc:bagit:5.0.0-Nov-29-2016_15-18-05-SNAPSHOT'}
+  dependencies {classpath 'gov.loc:bagit:5.0.0-Dec-01-2016_13-21-34-SNAPSHOT'}
 }
 
 import gov.loc.repository.bagit.verify.BagVerifier
