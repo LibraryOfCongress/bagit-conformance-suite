@@ -3,7 +3,9 @@ buildscript {
     jcenter()
     maven {url "https://oss.sonatype.org/content/repositories/snapshots" }
   }
-  dependencies {classpath 'gov.loc:bagit:5.0.0-Dec-01-2016_13-21-34-SNAPSHOT'}
+  dependencies {
+    classpath 'gov.loc:bagit:5.0.0-Jan-06-2017_01-35-08-SNAPSHOT'
+  }
 }
 
 import gov.loc.repository.bagit.verify.BagVerifier
@@ -59,4 +61,67 @@ task testJavaConformance(){
       testValidVersionsUsingJava(version)
     }
   }
+}
+
+void testInvalidVersionsUsingPython(File pythonExec, File version){
+  File invalidDir = new File(version, "invalid")
+  if(invalidDir.exists()){
+    invalidDir.eachFile{bagDir ->
+      runPythonBagit(pythonExec, bagDir, false)
+    }
+  }
+}
+
+void testValidVersionsUsingPython(File pythonExec, File version){
+  File validDir = new File(version, "valid")
+  if(validDir.exists()){
+    validDir.eachFile{bagDir ->
+      runPythonBagit(pythonExec, bagDir, true)
+    }
+  }
+}
+
+task testPythonConformance(dependsOn: "downloadBagitPython"){
+  description 'Tests the bagit-python library against the bagit conformance suite repository'
+  
+  doLast{
+    def pythonExec = downloadBagitPython.outputs.getFiles().getSingleFile()
+    
+    getBagVersionDirectories().each{version ->
+      testInvalidVersionsUsingPython(pythonExec, version)
+      testValidVersionsUsingPython(pythonExec, version)
+    }
+  }
+}
+
+task downloadBagitPython(){
+  outputs.file( new File(project.buildDir, "python/bagit.py"))
+  doLast{
+    File bagitFile = outputs.getFiles().getSingleFile()
+    File parentDir = bagitFile.getParentFile()
+    if(!parentDir.exists()){
+      parentDir.mkdirs()
+    }
+    new URL('https://raw.githubusercontent.com/LibraryOfCongress/bagit-python/v1.5.4/bagit.py').withInputStream{ i -> outputs.getFiles().getSingleFile().withOutputStream{ it << i }}
+    bagitFile.setExecutable(true)
+  }
+}
+
+void runPythonBagit(File pythonExec, File bagDir, boolean valid){
+    def command = [pythonExec.toString(), "--validate", bagDir.toString()]
+    def process = new ProcessBuilder(command).redirectErrorStream(true).start()
+    process.waitFor()
+    
+    switch(process.exitValue()){
+      case 0:
+        if(!valid){
+          throw new GradleException("Bagit-Python reported invalid bag [${bagDir}] as valid! Output was:\n${process.inputStream.text}")
+        }
+        break
+      default:
+        if(valid){
+          throw new GradleException("Bagit-Python reported valid bag [${bagDir}] as invalid! Output was:\n${process.inputStream.text}")
+        }
+        break
+    }
 }
