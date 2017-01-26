@@ -1,5 +1,4 @@
-buildscript {
-  repositories {
+buildscript { repositories {
     jcenter()
     maven {url "https://oss.sonatype.org/content/repositories/snapshots" }
   }
@@ -54,6 +53,7 @@ void testInvalidVersionsUsingJava(File version){
 
 task testJavaConformance(){
   description 'Tests the bagit-java library against the bagit conformance suite repository'
+  group 'conformance'
 
   doLast{
     getBagVersionDirectories().each{version ->
@@ -83,6 +83,7 @@ void testValidVersionsUsingPython(File pythonExec, File version){
 
 task testPythonConformance(dependsOn: "downloadBagitPython"){
   description 'Tests the bagit-python library against the bagit conformance suite repository'
+  group 'conformance'
   
   doLast{
     def pythonExec = downloadBagitPython.outputs.getFiles().getSingleFile()
