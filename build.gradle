@@ -103,7 +103,7 @@ task downloadBagitPython(){
     if(!parentDir.exists()){
       parentDir.mkdirs()
     }
-    new URL('https://raw.githubusercontent.com/LibraryOfCongress/bagit-python/v1.5.4/bagit.py').withInputStream{ i -> outputs.getFiles().getSingleFile().withOutputStream{ it << i }}
+    new URL('https://raw.githubusercontent.com/LibraryOfCongress/bagit-python/v1.6.0b2/bagit.py').withInputStream{ i -> outputs.getFiles().getSingleFile().withOutputStream{ it << i }}
     bagitFile.setExecutable(true)
   }
 }
