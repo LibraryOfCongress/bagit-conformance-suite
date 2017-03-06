@@ -2,8 +2,11 @@ buildscript { repositories {
     jcenter()
     maven {url "https://oss.sonatype.org/content/repositories/snapshots" }
   }
+
+  String bagitJavaVersion = '5.0.0-' + new Date().format('MMM-dd-yyyy') + '+'
+
   dependencies {
-    classpath 'gov.loc:bagit:5.0.0-Jan-06-2017_01-35-08-SNAPSHOT'
+    classpath "gov.loc:bagit:${bagitJavaVersion}"
   }
 }
 
