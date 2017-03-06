@@ -35,12 +35,12 @@ void testValidVersionsUsingJava(File version){
 }
 
 void testInvalidVersionsUsingJava(File version){
-  File validDir = new File(version, "invalid")
+  File invalidDir = new File(version, "invalid")
   BagReader bagReader = new BagReader()
   BagVerifier bagVerifier = new BagVerifier()
   
-  if(validDir.exists()){
-    validDir.eachFile{bagDir ->
+  if(invalidDir.exists()){
+    invalidDir.eachFile{bagDir ->
       try{
         Bag bag = bagReader.read(bagDir.toPath())
         boolean result = bagVerifier.isValid(bag, true)
