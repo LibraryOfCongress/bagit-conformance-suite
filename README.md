@@ -8,9 +8,9 @@ This is a simple collection of BagIt format test cases for different implementat
 * Each version directory should contain a directory named “valid” containing bag directories which must pass validation
   and "invalid" containing bag directories which must fail validation. 
 * It may also have the following optional directories:
-  * a "warning" directory that are still valid but should produce a warning.
-  * a "linux-only" directory that have specific invalid tests that would only occure on linux or unix operating systems
-  * a "windows-only" directory that have specific invalid tests that would only occure on windows operating systems
+  * a "warning" directory containing bags which are still valid but should produce a warning
+  * a "linux-only" directory that has specific invalid tests that would only occur on a POSIX operating systems (tested on Linux)
+  * a "windows-only" directory that has specific invalid tests that would only occur on Windows operating systems
 * Each of the lower level directories should contain a human-meaningful name indicating the aspect being
   tested
 
