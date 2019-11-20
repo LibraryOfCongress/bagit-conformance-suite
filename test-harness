@@ -108,7 +108,7 @@ def configure_logging(verbosity=0):
 if __name__ == '__main__':
     parser = argparse.ArgumentParser(description=__doc__.strip(),
                                      formatter_class=argparse.RawDescriptionHelpFormatter)
-    parser.add_argument('--verbosity', '-v', action='count')
+    parser.add_argument('--verbosity', '-v', action='count', default=0)
     parser.add_argument('test_program', metavar='TEST_PROGRAM', help='Path to an executable')
     parser.add_argument('test_program_arguments', nargs='*',
                         help='Arguments for the test executable - e.g. --validate for bagit.py.'
