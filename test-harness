@@ -49,11 +49,13 @@ def run_version_suite(test_program_argv, version_dir):
             if not os.path.isdir(os.path.join(test_subsuite_directory, test_bag)):
                 continue
 
-            proc = subprocess.Popen(test_program_argv + [test_bag],
-                                    stdout=subprocess.PIPE, stderr=subprocess.PIPE,
-                                    cwd=test_subsuite_directory)
-            rc = proc.wait()
-            stdout, stderr = proc.communicate()
+            proc = subprocess.run(test_program_argv + [test_bag],
+                                  capture_output=True,
+                                  cwd=test_subsuite_directory)
+
+            rc = proc.returncode
+            stdout = proc.stdout
+            stderr = proc.stderr
 
             # We'll select the log level based on whether we expected an error:
             log_f = logging.info
@@ -101,6 +103,7 @@ def configure_logging(verbosity=0):
         stdout_handler = logging.StreamHandler(stream=sys.stdout)
         stdout_handler.setLevel(desired_level)
         logging.getLogger().addHandler(stdout_handler)
+        logging.getLogger().setLevel(desired_level)
     else:
         logging.basicConfig(level=logging.WARNING, stream=sys.stderr)
 
