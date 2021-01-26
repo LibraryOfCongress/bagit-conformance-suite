@@ -27,8 +27,8 @@ BASE_DIR = os.path.dirname(__file__)
 SYSTEM = platform.system().lower()
 
 DEFAULT_ENCODING = sys.stdout.encoding
-if DEFAULT_ENCODING != 'UTF-8':
-    print('Default encoding is %s: use with caution, UTF-8 is recommended', file=sys.stderr)
+if DEFAULT_ENCODING.upper() != 'UTF-8':
+    print('Default encoding is %s: use with caution, UTF-8 is recommended' % DEFAULT_ENCODING, file=sys.stderr)
 
 
 def run_version_suite(test_program_argv, version_dir):
