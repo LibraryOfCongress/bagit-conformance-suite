@@ -1,0 +1,2 @@
+Bag-Software-Agent: bagit-create 0.1.1 <https://github.com/cerndigitalmemory/bagit-create>
+Bagging-Date: 2021-11-18
