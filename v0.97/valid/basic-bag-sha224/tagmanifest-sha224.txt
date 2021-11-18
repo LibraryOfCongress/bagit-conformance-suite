@@ -1,0 +1,3 @@
+af9c97a402c65022ea7f0473cb5a9261f4e3c2bc0c1a5832addd6dcb bag-info.txt
+fe7e72d15c56a8e8017246f52765a93ce4823d1fa3ed1e0d1ac3695f bagit.txt
+e7df41e873beb995bcb8bfec36b27272ab51c2b1e40f8eadcacf5d9e manifest-sha224.txt
